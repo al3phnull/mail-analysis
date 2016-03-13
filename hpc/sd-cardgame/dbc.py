@@ -22,7 +22,19 @@ if __name__ == '__main__':
     pC = {'name': 'player computer', 'health': 30, 'deck': None, 'hand': None, 'active': None, 'handsize': 5,
                'discard': None}
     central = {'name': 'central', 'active': None, 'activeSize': 5, 'supplement': None, 'deck': None}
-    sdc = [4 * [Card('Archer', (3, 0), 2)], 4 * [Card('Baker', (0, 3), 2)], 3 * [Card('Swordsman', (4, 0), 3)], 2 * [Card('Knight', (6, 0), 5)],3 * [Card('Tailor', (0, 4), 3)],3 * [Card('Crossbowman', (4, 0), 3)],3 * [Card('Merchant', (0, 5), 4)],4 * [Card('Thug', (2, 0), 1)],4 * [Card('Thief', (1, 1), 1)],2 * [Card('Catapault', (7, 0), 6)], 2 * [Card('Caravan', (1, 5), 5)],2 * [Card('Assassin', (5, 0), 4)]]
+    sdc = [4 * [Card('Archer', (3, 0), 2)], 
+            4 * [Card('Baker', (0, 3), 2)], 
+            3 * [Card('Swordsman', (4, 0), 3)], 
+            2 * [Card('Knight', (6, 0), 5)],
+            3 * [Card('Tailor', (0, 4), 3)],
+            3 * [Card('Crossbowman', (4, 0), 3)],
+            3 * [Card('Merchant', (0, 5), 4)],
+            4 * [Card('Thug', (2, 0), 1)],
+            4 * [Card('Thief', (1, 1), 1)],
+            2 * [Card('Catapult', (7, 0), 6)], 
+            2 * [Card('Caravan', (1, 5), 5)],
+            2 * [Card('Assassin', (5, 0), 4)]
+            ]
     playeronedeck = [8 * [Card('Serf', (0, 1), 0)],
                      2 * [Card('Squire', (1, 0), 0)]
                      ]

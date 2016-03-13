@@ -1,77 +1,109 @@
 {
-    "Archer": {
-        "cost" : 2,
-        "attack" : 3,
-        "money" : 0
-    },
-    "Baker": {
-        "cost" : 2,
-        "attack" : 0,
-        "money" : 3
-    },
-    "Swordsman": {
-        "cost" : 3,
-        "attack" : 4,
-        "money" : 0
-    },
-    "Knight": {
-        "cost" : 5,
-        "attack" : 6,
-        "money" : 0
-    },
-    "Tailor": {
-        "cost" : 3,
-        "attack" : 0,
-        "money" : 4
-    },
-    "Crossbowman": {
-        "cost" : 3,
-        "attack" : 4,
-        "money" : 0
-    },
-    "Merchant": {
-        "cost" : 4,
-        "attack" : 0,
-        "money" : 5
-    },
-    "Thug": {
-        "cost" : 1,
-        "attack" : 1,
-        "money" : 0
-    },
-    "Thief": {
-        "cost" : 1,
-        "attack" : 1,
-        "money" : 1
-    },
-    "Catapult": {
-        "cost" : 6,
-        "attack" : 7,
-        "money" : 0
-    },
-    "Caravan": {
-        "cost" : 5,
-        "attack" : 1,
-        "money" : 5
-    },
-    "Assassin": {
-        "cost" : 4,
-        "attack" : 5,
-        "money" : 0
-    },
-    "Serf": {
-        "cost" : 0,
-        "attack" : 0,
-        "money" : 1
-    },
-    "Squire": {
-        "cost" : 0,
-        "attack" : 1,
-        "money" : 0
-    },
-    "Levy": {
+    "central":[
+        {
+            "name": "Archer",
+            "cost" : 2,
+            "attack" : 3,
+            "money" : 0
+        },
+
+        {
+            "name": "Baker",
+            "cost" : 2,
+            "attack" : 0,
+            "money" : 3
+        },
+
+        {
+            "name": "Swordsman",
+            "cost" : 3,
+            "attack" : 4,
+            "money" : 0
+        },
+        
+        {
+            "name": "Knight",
+            "cost" : 5,
+            "attack" : 6,
+            "money" : 0
+        },
+        
+        {
+            "name": "Tailor",
+            "cost" : 3,
+            "attack" : 0,
+            "money" : 4
+        },
+        
+        {
+            "name": "Crossbowman",
+            "cost" : 3,
+            "attack" : 4,
+            "money" : 0
+        },
+        
+        {
+            "name": "Merchant",
+            "cost" : 4,
+            "attack" : 0,
+            "money" : 5
+        },
+        
+        {
+            "name": "Thug",
+            "cost" : 1,
+            "attack" : 1,
+            "money" : 0
+        },
+        
+        {
+            "name": "Thief",
+            "cost" : 1,
+            "attack" : 1,
+            "money" : 1
+        },
+        
+        {
+            "name": "Catapult",
+            "cost" : 6,
+            "attack" : 7,
+            "money" : 0
+        },
+        
+        {
+            "name": "Caravan",
+            "cost" : 5,
+            "attack" : 1,
+            "money" : 5
+        },
+        
+        {
+            "name": "Assassin",
+            "cost" : 4,
+            "attack" : 5,
+            "money" : 0
+        }
+    ],
+    "player":[
+        {
+            "name":"Serf",
+            "cost" : 0,
+            "attack" : 0,
+            "money" : 1
+        },
+        {
+            "name":"Squire",
+            "cost" : 0,
+            "attack" : 1,
+            "money" : 0
+        }
+    ],
+    "supplement":[
+    {
+        "name": "Levy",
         "cost" : 2,
         "attack" : 1,
         "money" : 2
     }
+    ]
 }
