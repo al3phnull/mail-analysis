@@ -8,7 +8,7 @@ from card import *
 
 class TestCards(unittest.TestCase):
 
-    def card_test(self):
+    def test_card(self):
         test_dict = {
                 'name' : 'Archer',
                 'attack' : 3,
@@ -28,6 +28,8 @@ class TestCards(unittest.TestCase):
         self.assertEqual(str(arc['name']), 'Archer')
 
         
-
+    def test_deck(self):
+        g = Game()
+        
 
 

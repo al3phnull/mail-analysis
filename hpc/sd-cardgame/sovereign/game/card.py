@@ -20,6 +20,10 @@ class Card:
         self.cost = card['cost']
 
 
+    def __getitem__(self, key):
+        return self.card[key]
+        
+
 class Pile:
     """
     Gives the properties of card piles
@@ -32,6 +36,8 @@ class Pile:
     def __len__(self):
         return len(self.cards)
 
+    def __getitem__(self, key):
+        return self.cards[key]
 
     def create_pile(self, cardlist, ncards):
         """
@@ -39,9 +45,18 @@ class Pile:
         card list
         """
         for i in range(ncards):
-            self.cards.append(random.choice(cardlist))
+            self.cards.append(Card(random.choice(cardlist)))
 
         return self.cards
+
+
+    def build_player_pile(self, cardlist):
+        squire_index = next(ix for (ix, d) in enumerate(cardlist) if d['name'] == 'Squire')
+        serf_index = next(ix for (ix, d) in enumerate(cardlist) if d['name'] == 'Squire')
+        [self.cards.append(Card(cardlist[serf_index])) for i in range(8)]
+        [self.cards.append(Card(cardlist[squire_index])) for i in range(2)]
+        return self.cards
+
 
     def shuffle(self):
         """
@@ -55,11 +70,11 @@ class Pile:
         """
         self.cards.append(card)
 
-    def remove(self, card):
+    def draw(self):
         """
         Remove a card from the pile
         """
-        self.cards.pop(card)
+        return self.cards.pop()
 
     def merge_piles(self, main_pile):
         """
@@ -103,14 +118,15 @@ class Game:
     def __init__(self):
         self.data = []
         self.cardlist = []
-        self.deck = Pile()
+        self.human = Player()
+        self.bot = Player()
+        self.humandeck = Pile()
+        self.botdeck = Pile()
         self.central = Pile()
         self.supplement = Pile()
         self.ncentral = 36
         self.ndeck = 10
         self.nsupp = 10
-        self.human = Player()
-        self.bot = Player()
 
     def load_cards(self, cardfile = '../res/cards.json'):
         with open(cardfile) as card_file:
@@ -129,13 +145,10 @@ class Game:
         self.central.create_pile(self.data['central'], self.ncentral)
 
         self.supplement.create_pile(self.data['supplement'], self.nsupp)
-
-        [self.deck.add(filter(lambda pcards: pcards['name'] == 'Serf', \
-                self.data['player']) for i in range(8))]
-        [self.deck.add(filter(lambda pcards: pcards['name'] == 'Squire', \
-                self.data['player']) for i in range(2))]
-
-        return self.central, self.supplement, self.deck
+        self.humandeck.build_player_pile(self.data['player'])
+        self.botdeck.build_player_pile(self.data['player'])
+                
+        return self.central, self.supplement, self.humandeck, self.botdeck
 
 
 
