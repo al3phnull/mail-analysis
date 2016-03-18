@@ -211,9 +211,8 @@ class Board(object):
 
     def update_central(self, index):
         if len(self.central) < self.ncen:
-            card = self.central.draw(index)
-            self.maindeck.draw()
-            self.central.add
+            card = self.maindeck.draw()
+            self.central.add(card)
 
 class Game(object):
 
@@ -241,17 +240,32 @@ class Game(object):
         self.human.make_hand()
 
     def buyphase(self):
-        while True:
+        while self.human.money > 0:
             os.system('clear')
             print self.text['cards']
             self.board.central.display_cards()
             if (option == 'S' or option == 's'):
-                pass
+                if (len(self.board.supplement) > 0):
+                    if (self.human.money >= card.cost):
+                        card = self.board.supplement.draw()
+                        self.human.discard.add(card)
+                        self.human.money -= card.cost
+                        print(self.text['bought'])
 
+                    else:
+                        print(self.text['broke'])
+                else:
+                    print(self.text['nosupp'])
+
+                        
             elif (option == 'E' or option == 'e'):
                 break
 
             elif (option.isdigit()):
+                index = int(option)
+                if index < len(self.board.central):
+                    if self.human.money < 
+                card = self.central.draw(index)
                 pass
 
     def attack(self):
@@ -269,6 +283,9 @@ class Game(object):
 
     def show_data(self):
         os.system('clear')
+        print(self.text['health'] % (self.human.health, self.bot.health))
+        print(self.text['gopts'])
+
         print(self.text['line'])
         self.board.central.display_cards()
 
@@ -287,9 +304,7 @@ def main():
     g.newturn()
     while True:
         g.show_data()
-        print(g.text['health'] % (g.human.health, g.bot.health))
-        print(g.text['gopts'])
-        action = raw_input("Enter action: ")
+        action = raw_input(g.text['action']):
         if (action == 'P' or action == 'p'):
             g.human.play_all()
             g.show_data()
@@ -315,6 +330,7 @@ def main():
 
         if (action == 'Q' or action == 'q'):
             sys.exit(g.text['giveup'])
+
         else:
             print(g.text['badopt'])
 

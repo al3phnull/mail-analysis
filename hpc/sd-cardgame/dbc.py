@@ -243,7 +243,7 @@ if __name__ == '__main__':
         attack = 0
         print "\nPlayer Health %s" % pO['health']
         print "Computer Health %s" % pC['health']
-        print " Computer player values attack %s, money %s" % (attack, money)
+        print "Computer player values attack %s, money %s" % (attack, money)
         print "Computer buying"
         if money > 0:
             cb = True
