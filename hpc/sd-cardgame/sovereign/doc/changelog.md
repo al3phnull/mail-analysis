@@ -1,4 +1,4 @@
-___Changes___
+### Changes
 * Created a json file to load cards from as dicts
 * Created a Card class to read card attributes from
 * Created a Pile class which is used to manipulate decks
@@ -6,9 +6,8 @@ ___Changes___
 * Created a Game class which contains the rules and moves
 * Increased game risk by randomising central deck cards
 
-___TODO___
+### TODO
 * Add json file for strings
 * Create subclass for bot player (inherit from Player)
 * Add game functionality
-* 
-
+* Improve user interface (Qt? Curses? Text)

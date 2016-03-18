@@ -1,14 +1,17 @@
 """
 Class to specify card values
 """
+
 import random
+
+from data import Data
 from card import Card
+
 
 class Pile:
     """
     Gives the properties of card piles
     """
-
     def __init__(self):
         self.cards = []
 
@@ -16,6 +19,8 @@ class Pile:
     def __len__(self):
         return len(self.cards)
 
+    def __getitem__(self, key):
+        return self.cards[key]
 
     def create_pile(self, cardlist, ncards):
         """
@@ -23,8 +28,15 @@ class Pile:
         card list
         """
         for i in range(ncards):
-            self.cards.append(random.choice(cardlist))
+            self.cards.append(Card(random.choice(cardlist)))
 
+        return self.cards
+
+    def build_player_pile(self, cardlist):
+        squire_index = next(ix for (ix, d) in enumerate(cardlist) if d['name'] == 'Squire')
+        serf_index = next(ix for (ix, d) in enumerate(cardlist) if d['name'] == 'Squire')
+        [self.cards.append(Card(cardlist[serf_index])) for i in range(8)]
+        [self.cards.append(Card(cardlist[squire_index])) for i in range(2)]
         return self.cards
 
     def shuffle(self):
@@ -39,11 +51,17 @@ class Pile:
         """
         self.cards.append(card)
 
-    def remove(self, card):
+    def take(self, card):
+        """
+        Place a card on top of the pile
+        """
+        self.cards.remove(card)
+
+    def draw(self):
         """
         Remove a card from the pile
         """
-        self.cards.pop(card)
+        return self.cards.pop()
 
     def merge_piles(self, main_pile):
         """
@@ -52,4 +70,3 @@ class Pile:
         main_pile.cards.extend(self.cards)
         main_pile.shuffle()
         self.cards = []
-

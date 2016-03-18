@@ -1,4 +1,4 @@
-This is a portfolio of:
+This is a repository containing:
 
 * Significant academic projects
 * Personal projects
