@@ -2,6 +2,7 @@
 Class to specify card values
 """
 
+import sys, os
 import json
 import random
 
@@ -30,7 +31,7 @@ class Pile(object):
     """
     def __init__(self):
         self.cards = []
-
+        self.text = Data().load_data('../res/strings.json')
 
     def __len__(self):
         return len(self.cards)
@@ -70,7 +71,7 @@ class Pile(object):
         """
         random.shuffle(self.cards)
 
-    def add(self, card):
+    def put(self, card):
         """
         Place a card on top of the pile
         """
@@ -80,9 +81,9 @@ class Pile(object):
         """
         Removes a specific card from the pile
         """
-        self.cards.remove(card)
+        return self.cards.remove(card)
 
-    def draw(self):
+    def draw(self, card=None):
         """
         Remove a card from the top of pile
         """
@@ -97,14 +98,18 @@ class Pile(object):
         self.cards = []
 
     def display_cards(self):
-        for card in self.cards:
-            print "Name %s, cost %s, attack %s, money %s" % \
-                (card.name, card.cost, card.attack, card.money)
+        if len(self.cards) == 0:
+            print "\nEmpty"
+        else:
+            for card in self.cards:
+                print(self.text['cvals'] % \
+                    (card.name, card.cost, card.attack, card.money))
+
 
 class Player(object):
 
     def __init__(self):
-        self.data = Data().load_cards()
+        self.data = Data().load_data('../res/cards.json')
         self.money = 0
         self.attack = 0
         self.health = 30
@@ -114,14 +119,14 @@ class Player(object):
         self.drawpile = Pile()
         self.handsize = 5
 
-    def print_stats(self):
+    def show_stats(self):
         print("Money: %s, Attack: %s" % (self.money, self.attack))
 
     def move_to_pile(self, card, target_pile):
         for pile in (self.drawpile, self.discard, self.hand):
             if card in pile:
                 pile.take(card)
-        target_pile.add(card)
+        target_pile.put(card)
 
     def make_deck(self):
         self.drawpile.build_player_pile(self.data['player'])
@@ -129,21 +134,27 @@ class Player(object):
     def make_hand(self):
         while len(self.hand) < self.handsize:
             card = self.drawpile.draw()
-            self.hand.add(card)
+            self.hand.put(card)
 
-    def play_card(self, card):
-        self.hand.take(card)
+    def play_card(self, index):
+        card = self.hand.draw(index)
+        self.active.put(card)
         self.money += card.money
         self.attack += card.attack
-        self.discard.add(card)
 
     def play_all(self):
-        for card in self.hand:
-            self.play_card(card)
+        for index in range(self.handsize):
+            self.play_card(index)
 
     def buy_card(self, card):
         self.money -= card.cost
-        self.discard.add(card)
+        self.discard.put(card)
+
+    def move_to_discard(self):
+        for card in self.active:
+            self.active.take(card)
+            self.discard.put(card)
+
 
 class Bot(Player):
 
@@ -170,16 +181,16 @@ class Data(object):
     def __init__(self):
         self.data = []
 
-    def load_cards(self, cardfile='../res/cards.json'):
-        with open(cardfile) as card_file:
-            self.data = json.load(card_file)
+    def load_data(self, textfile):
+        with open(textfile) as in_file:
+            self.data = json.load(in_file)
 
         return self.data
 
 class Board(object):
 
     def __init__(self):
-        self.data = Data().load_cards()
+        self.data = Data().load_data('../res/cards.json')
         self.central = Pile()
         self.active = Pile()
         self.maindeck = Pile()
@@ -196,65 +207,116 @@ class Board(object):
     def draw_central(self):
         for c in range(self.ncen):
             card = self.maindeck.draw()
-            self.central.add(card)
+            self.central.put(card)
 
+    def update_central(self, index):
+        if len(self.central) < self.ncen:
+            card = self.central.draw(index)
+            self.maindeck.draw()
+            self.central.add
 
 class Game(object):
 
     def __init__(self):
-        self.data = Data().load_cards()
+        self.text = Data().load_data('../res/strings.json')
+        self.data = Data().load_data('../res/cards.json')
         self.human = Player()
         self.bot = Bot()
         self.board = Board()
+
+    def intro_message(self):
+        os.system('clear')
+        print self.text['intro']
+        raw_input(self.text['continue'])
 
     def initialise(self):
         self.board.deal_decks()
         self.human.make_deck()
         self.bot.make_deck()
+        self.board.draw_central()
 
     def newturn(self):
+        self.human.discard.merge_piles(self.human.drawpile)
+        self.human.drawpile.shuffle()
         self.human.make_hand()
-        self.board.central.display_cards()
-        self.human.hand.display_cards()
 
     def buyphase(self):
-        pass
+        while True:
+            os.system('clear')
+            print self.text['cards']
+            self.board.central.display_cards()
+            if (option == 'S' or option == 's'):
+                pass
+
+            elif (option == 'E' or option == 'e'):
+                break
+
+            elif (option.isdigit()):
+                pass
 
     def attack(self):
-        pass
+        self.bot.health -= self.human.attack
+        self.human.attack = 0
 
     def endturn(self):
+        self.human.move_to_discard()
+
+    def play(self):
         pass
 
     def botturn(self):
         pass
 
-    def play(self):
-        pass
+    def show_data(self):
+        os.system('clear')
+        print(self.text['line'])
+        self.board.central.display_cards()
+
+        print(self.text['hand'])
+        self.human.hand.display_cards()
+
+        print(self.text['stats'])
+        self.human.show_stats()
+
+
 
 def main():
     g = Game()
+    g.intro_message()
     g.initialise()
-    while g.human.health > 0:
-        g.newturn()
-        print("\nPlayer Health: %s, Computer Health: %s \n" % (g.human.health, g.bot.health))
-        print("\nChoose action: \nP = play all\n[0-n] = play card\nB = buy card\nA = attack\nE = end turn\n")
+    g.newturn()
+    while True:
+        g.show_data()
+        print(g.text['health'] % (g.human.health, g.bot.health))
+        print(g.text['gopts'])
         action = raw_input("Enter action: ")
-        if action == "P" or "p":
+        if (action == 'P' or action == 'p'):
             g.human.play_all()
+            g.show_data()
+
+        if (action.isdigit()):
+            if (int(action) < len(g.human.hand)):
+                g.human.play_card(int(action))
+                g.show_data()
+            else:
+                print(g.text['toohigh']) 
+
+
+        if (action == 'B' or action == 'b'):
             pass
 
-        if action.isdigit():
-            pass
+        if (action == 'A' or action == 'a'):
+            g.attack()
+            g.show_data()
 
-        if action == "B" or "b":
-            pass
+        if (action == 'E' or action == 'e'):
+            g.endturn()
+            g.botturn()
 
-        if action == "A" or "a":
-            pass
-
-        if action == "E" or "e":
-            pass
+        if (action == 'Q' or action == 'q'):
+            sys.exit(g.text['giveup'])
+        else:
+            print(g.text['badopt'])
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,16 @@
+{
+    "intro" : "Sovereign is a deck building card game where utilising the best strategy and building the strongest deck is crucial to victory. \n\nPlaying cards from your hand into the active area increases your attack and money.\nThe central line consists of all the cards that you may buy using the money from the active cards.\n\n Build the strongest deck and destroy your opponent!",
+    "continue": "\nPress any key to continue",
+    "health" : "\nPlayer health: %s, Computer health: %s",
+    "values" : "Money: %s, Attack: %s",
+    "cvals" : "Name %s costing %s with attack %d and money %s",
+    "cards" : "\nAvailable Cards",
+    "gopts" : "\nChoose action: \nP = play all \n[0-n] = play card\nB = buy card\nA = attack\nE = end turn\nQ = surrender",
+    "toohigh" : "\nCard option out of range",
+    "badopt" : "\nInvalid option, try again",
+    "giveup" : "\nPlayer surrendered",
+    "line" : "\nCentral line",
+    "hand" : "\nYour hand",
+    "action" :"\nEnter action",
+    "stats" : "\nYour stats"
+}
