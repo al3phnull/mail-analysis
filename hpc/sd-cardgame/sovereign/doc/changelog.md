@@ -1,10 +1,14 @@
 ### Changes
 * Created a json file to load cards from as dicts
+* Created a json file to load game text strings
 * Created a Card class to read card attributes from
 * Created a Pile class which is used to manipulate decks
 * Created a Player class which is used to manipulate players
 * Created a Game class which contains the rules and moves
+* Created a Data class for extracting resource files
 * Increased game risk by randomising central deck cards
+* Game options no longer case sensitive
+* Screen is now cleared after every action - cleaner interface 
 
 ### TODO
 * Add json file for strings

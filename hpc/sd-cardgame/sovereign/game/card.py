@@ -83,11 +83,11 @@ class Pile(object):
         """
         return self.cards.remove(card)
 
-    def draw(self, card=None):
+    def draw(self, card=0):
         """
         Remove a card from the top of pile
         """
-        return self.cards.pop()
+        return self.cards.pop(card)
 
     def merge_piles(self, main_pile):
         """
@@ -99,7 +99,7 @@ class Pile(object):
 
     def display_cards(self):
         if len(self.cards) == 0:
-            print "\nEmpty"
+            print(self.text['empty'])
         else:
             for card in self.cards:
                 print(self.text['cvals'] % \
@@ -143,16 +143,16 @@ class Player(object):
         self.attack += card.attack
 
     def play_all(self):
-        for index in range(self.handsize):
-            self.play_card(index)
+        for index in range(len(self.hand)):
+            self.play_card(0)
 
     def buy_card(self, card):
         self.money -= card.cost
         self.discard.put(card)
 
-    def move_to_discard(self):
-        for card in self.active:
-            self.active.take(card)
+    def move_to_discard(self, pile):
+        for x in range(len(pile)):
+            card = pile.draw()
             self.discard.put(card)
 
 
@@ -191,7 +191,6 @@ class Board(object):
 
     def __init__(self):
         self.data = Data().load_data('../res/cards.json')
-        self.central = Pile()
         self.active = Pile()
         self.maindeck = Pile()
         self.supplement = Pile()
@@ -200,19 +199,21 @@ class Board(object):
         self.ncen = 5
 
     def deal_decks(self):
-        self.maindeck.create_pile(self.data['central'], self.ncen)
+        self.maindeck.create_pile(self.data['central'], self.nmain)
         self.supplement.create_pile(self.data['supplement'], self.nsupp)
 
 
-    def draw_central(self):
+    def draw_active(self):
         for c in range(self.ncen):
             card = self.maindeck.draw()
-            self.central.put(card)
+            self.active.put(card)
 
-    def update_central(self, index):
-        if len(self.central) < self.ncen:
+    def update_active(self):
+        if len(self.active) < self.ncen:
             card = self.maindeck.draw()
-            self.central.add(card)
+            self.active.put(card)
+        else:
+            pass
 
 class Game(object):
 
@@ -232,7 +233,7 @@ class Game(object):
         self.board.deal_decks()
         self.human.make_deck()
         self.bot.make_deck()
-        self.board.draw_central()
+        self.board.draw_active()
 
     def newturn(self):
         self.human.discard.merge_piles(self.human.drawpile)
@@ -241,53 +242,122 @@ class Game(object):
 
     def buyphase(self):
         while self.human.money > 0:
-            os.system('clear')
-            print self.text['cards']
-            self.board.central.display_cards()
+            self.show_buy()
+            option = raw_input(self.text['action'])
             if (option == 'S' or option == 's'):
                 if (len(self.board.supplement) > 0):
+                    card = self.board.supplement[0]
                     if (self.human.money >= card.cost):
-                        card = self.board.supplement.draw()
-                        self.human.discard.add(card)
+                        self.board.supplement.draw(card)
+                        self.human.discard.put(card)
                         self.human.money -= card.cost
-                        print(self.text['bought'])
-
+                        print(self.text['bought'] % (card))
+    
                     else:
                         print(self.text['broke'])
                 else:
                     print(self.text['nosupp'])
 
+                raw_input(self.text['continue'])
+                self.board.update_active()
+
                         
             elif (option == 'E' or option == 'e'):
+                raw_input(self.text['continue'])
                 break
 
             elif (option.isdigit()):
                 index = int(option)
-                if index < len(self.board.central):
-                    if self.human.money < 
-                card = self.central.draw(index)
-                pass
+                if index < len(self.board.active):
+                    card = self.board.active[index]
+                    if self.human.money >= card.cost:
+                        self.board.active.draw(index)
+                        self.human.discard.put(card)
+                        self.human.money -= card.cost
+                        print(self.text['bought'] % (card))
+                        if (len(self.board.maindeck) > 0):
+                            newcard = self.board.maindeck.draw()
+                            self.board.active.put(newcard)
+                    else:
+                        print(self.text['broke'])
+                else:
+                    print(self.text['toohigh'])
+                raw_input(self.text['continue'])
+                self.board.update_active()
+            else:
+                print(self.text['badopt'])
+
 
     def attack(self):
         self.bot.health -= self.human.attack
         self.human.attack = 0
 
     def endturn(self):
-        self.human.move_to_discard()
+        if (len(self.human.active) > 0):
+            self.human.move_to_discard(self.human.active)
+
+        if (len(self.human.hand) > 0):
+            self.human.move_to_discard(self.human.hand)
+
+        for x in range(0, self.human.handsize):
+            if (len(self.human.drawpile) == 0):
+                self.human.discard.merge_piles(self.human.drawpile)
 
     def play(self):
-        pass
+        self.newturn()
+        while True:
+            self.show_move()
+            action = raw_input(self.text['action'])
+            if (action == 'P' or action == 'p'):
+                if (len(self.human.hand) > 0):
+                    self.human.play_all()
+                self.show_move()
+    
+            if (action.isdigit()):
+                index = int(action)
+                if (index < len(self.human.hand)):
+                    self.human.play_card(index)
+                    self.show_move()
+                else:
+                    print(self.text['toohigh']) 
+                    raw_input(self.text['continue'])
+
+            if (action == 'B' or action == 'b'):
+                self.buyphase()
+    
+            if (action == 'A' or action == 'a'):
+                self.attack()
+                self.show_move()
+
+            if (action == 'E' or action == 'e'):
+                self.endturn()
+                break
+
+            if (action == 'Q' or action == 'q'):
+                sys.exit(self.text['giveup'])
+
+            else:
+                print(self.text['badopt'])
+            pass
 
     def botturn(self):
         pass
 
-    def show_data(self):
+    def show_buy(self):
+        os.system('clear')
+        print(self.text['avail'])
+        self.board.active.display_cards()
+
+        print(self.text['wonga'] % self.human.money)
+        
+        print(self.text['buyopts'])
+
+    def show_move(self):
         os.system('clear')
         print(self.text['health'] % (self.human.health, self.bot.health))
-        print(self.text['gopts'])
 
-        print(self.text['line'])
-        self.board.central.display_cards()
+        print(self.text['active'])
+        self.human.active.display_cards()
 
         print(self.text['hand'])
         self.human.hand.display_cards()
@@ -295,44 +365,16 @@ class Game(object):
         print(self.text['stats'])
         self.human.show_stats()
 
+        print(self.text['gopts'])
+
 
 
 def main():
     g = Game()
     g.intro_message()
     g.initialise()
-    g.newturn()
     while True:
-        g.show_data()
-        action = raw_input(g.text['action']):
-        if (action == 'P' or action == 'p'):
-            g.human.play_all()
-            g.show_data()
-
-        if (action.isdigit()):
-            if (int(action) < len(g.human.hand)):
-                g.human.play_card(int(action))
-                g.show_data()
-            else:
-                print(g.text['toohigh']) 
-
-
-        if (action == 'B' or action == 'b'):
-            pass
-
-        if (action == 'A' or action == 'a'):
-            g.attack()
-            g.show_data()
-
-        if (action == 'E' or action == 'e'):
-            g.endturn()
-            g.botturn()
-
-        if (action == 'Q' or action == 'q'):
-            sys.exit(g.text['giveup'])
-
-        else:
-            print(g.text['badopt'])
+        g.play()
 
 if __name__ == '__main__':
     main()
