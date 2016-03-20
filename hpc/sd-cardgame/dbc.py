@@ -257,7 +257,7 @@ if __name__ == '__main__':
                 for intindex in range (0, central['activeSize']):
                     if central['active'][intindex].cost <= money:
                         templist.append((intindex, central['active'][intindex]))
-                if len(templist) >0:
+                if len(templist) > 0:
                     highestIndex = 0
                     for intindex in range(0,len(templist)):
                         if templist[intindex][1].cost > templist[highestIndex][1].cost:
