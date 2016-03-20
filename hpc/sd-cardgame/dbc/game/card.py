@@ -13,7 +13,7 @@ class Card(object):
     Specifies card values
     """
     def __init__(self, card):
-        self.text = Data().load_data('../res/strings.json')
+        self.text = Data().load_data('res/strings.json')
         self.name = str(card['name'])
         self.attack = card['attack']
         self.money = card['money']
@@ -32,7 +32,7 @@ class Pile(object):
     """
     def __init__(self):
         self.cards = []
-        self.text = Data().load_data('../res/strings.json')
+        self.text = Data().load_data('res/strings.json')
 
     def __len__(self):
         return len(self.cards)
@@ -102,18 +102,18 @@ class Pile(object):
         if len(self.cards) == 0:
             print self.text['empty']
         else:
-            for card in self.cards:
-                print self.text['cvals'] % \
-                    (card.name, card.cost, card.attack, card.money)
+            for index, card in enumerate(self.cards):
+                print self.text['cvals1'] % \
+                    (index, card.name, card.cost, card.attack, card.money)
 
 
 class Player(object):
 
     def __init__(self):
-        self.data = Data().load_data('../res/cards.json')
+        self.data = Data().load_data('res/cards.json')
         self.money = 0
         self.attack = 0
-        self.health = 30
+        self.health = 5
         self.hand = Pile()
         self.active = Pile()
         self.discard = Pile()
@@ -192,10 +192,11 @@ class Data(object):
 
         return self.data
 
+
 class Board(object):
 
     def __init__(self):
-        self.data = Data().load_data('../res/cards.json')
+        self.data = Data().load_data('res/cards.json')
         self.active = Pile()
         self.maindeck = Pile()
         self.supplement = Pile()
@@ -219,13 +220,14 @@ class Board(object):
             card = self.maindeck.draw()
             self.active.put(card)
         else:
-            self.active -= 1
+            pass
+
 
 class Game(object):
 
     def __init__(self):
-        self.text = Data().load_data('../res/strings.json')
-        self.data = Data().load_data('../res/cards.json')
+        self.text = Data().load_data('res/strings.json')
+        self.data = Data().load_data('res/cards.json')
         self.human = Player()
         self.bot = Bot()
         self.board = Board()
@@ -249,6 +251,9 @@ class Game(object):
         raw_input(self.text['continue'])
 
     def initialise(self):
+        self.human = Player()
+        self.bot = Bot()
+        self.board = Board()
         self.board.deal_decks()
         self.human.make_deck()
         self.bot.make_deck()
@@ -457,7 +462,7 @@ class Game(object):
         print self.text['gopts']
 
 
-    def rematch_prompt(game):
+    def rematch_prompt(self):
         re = raw_input(self.text['rematch'])
         if re == 'Y' or re == 'y':
             return True
@@ -468,30 +473,34 @@ class Game(object):
         else:
             self.text['badopt']
 
+    
 
     def endgame(self):
         game = True
         while game:
-            game = False
             self.play()
             if self.human.health <= 0:
                 print self.text['botwin']
-                game = rematch_prompt(game)
+                game = self.rematch_prompt()
+                self.initialise()
 
             elif self.bot.health <= 0:
                 print self.text['win']
-                game = rematch_prompt(game)
+                game = self.rematch_prompt()
+                self.initialise()
 
             elif len(self.board.active) == 0:
                 print self.text['nocend']
 
                 if self.human.health > self.bot.health:
                     print self.text['win']
-                    game = rematch_prompt(game)
+                    game = self.rematch_prompt()
+                    self.initialise()
 
                 elif self.bot.health > self.human.health:
                     print self.text['botwin']
-                    game = rematch_prompt(game)
+                    game = self.rematch_prompt()
+                    self.initialise()
 
 
 
