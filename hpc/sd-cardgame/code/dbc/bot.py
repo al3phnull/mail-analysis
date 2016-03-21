@@ -1,5 +1,6 @@
 """
-Class to specify card values
+Class to specify computer player functions
+WIP: Would be used for cleaning up bot AI
 """
 
 import sys
@@ -19,16 +20,15 @@ class Bot(Player):
 
     def set_strat(self, strategy):
         if strategy == 'aggressive':
-            bot_aggressive()
+            self.bot_aggressive()
 
-        elif strategy == 'acquisitive':
-            bot_acquisitive()
+        elif strategy == 'covetous':
+            self.bot_covetous()
 
     def bot_aggressive(self):
         pass
 
-
-    def bot_acquisitive(self):
+    def bot_covetous(self):
         pass
 
 

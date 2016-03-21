@@ -3,7 +3,8 @@ Testing the program.
 """
 
 import unittest
-from card import *
+from dbc.card import *
+from dbc.data import *
 
 
 class TestCards(unittest.TestCase):
@@ -21,15 +22,7 @@ class TestCards(unittest.TestCase):
         self.assertEqual(type(card.money), int)
         self.assertEqual(type(card.cost), int)
 
+        self.assertEqual(card['name'], 'Archer')
 
-    def test_load_cards(self):
-        g = Game()
-        arc = g.load_cards('../res/cards.json')['central'][0]
-        self.assertEqual(str(arc['name']), 'Archer')
-
-        
-    def test_deck(self):
-        g = Game()
-        
-
-
+        text = Data().load_data('res/strings.json')['cvals']
+        self.assertEqual('%s' % card, text % (card.name, card.cost, card.attack, card.money))

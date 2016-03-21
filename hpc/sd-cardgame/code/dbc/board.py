@@ -1,5 +1,5 @@
 """
-Class to specify card values
+Class to specify central line attributes
 """
 
 import sys

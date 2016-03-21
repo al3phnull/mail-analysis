@@ -14,7 +14,7 @@ from data import *
 class Player(object):
 
     def __init__(self):
-        self.data = Data().load_data('res/cards.json')
+        self.data = Data().load_data('res/cards.json')['player']
         self.money = 0
         self.attack = 0
         self.health = 30
@@ -27,14 +27,8 @@ class Player(object):
     def show_stats(self):
         print "Money: %s, Attack: %s" % (self.money, self.attack)
 
-    def move_to_pile(self, card, target_pile):
-        for pile in (self.drawpile, self.discard, self.hand):
-            if card in pile:
-                pile.take(card)
-        target_pile.put(card)
-
     def make_deck(self):
-        self.drawpile.build_player_pile(self.data['player'])
+        self.drawpile.build_player_pile(self.data)
 
     def make_hand(self):
         while len(self.hand) < self.handsize:
@@ -63,3 +57,14 @@ class Player(object):
         for x in range(len(pile)):
             card = pile.draw()
             self.discard.put(card)
+
+    def endturn(self):
+        if len(self.active) > 0:
+            self.move_to_discard(self.active)
+
+        if len(self.hand) > 0:
+            self.move_to_discard(self.active)
+
+        self.discard.merge_piles(self.drawpile)
+        self.money = 0
+        self.attack = 0

@@ -2,7 +2,7 @@
 Class to specify card values
 """
 
-from code.game import *
+from game import *
 
 def main():
     g = Game()
