@@ -1,13 +1,14 @@
 """
 Class to specify card values
 """
-from game import *
-import logging
+
+from code.game import *
 
 def main():
     g = Game()
-    g.deal_decks()
-    g.play()
+    g.intro_message()
+    g.initialise()
+    g.endgame()
 
 if __name__ == '__main__':
     main()

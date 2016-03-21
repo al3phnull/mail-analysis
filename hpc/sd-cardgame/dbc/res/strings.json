@@ -1,5 +1,5 @@
 {
-    "intro" : "Sovereign is a deck building card game where utilising\n the best strategy and building the strongest deck is crucial to victory. \n\nPlaying cards from your hand into the active area increases your attack and money.\nThe central line consists of all \nthe cards that you may buy using the money from the active cards.\n\nBuild the strongest deck and destroy your opponent!",
+    "intro" : "dbc is a deck building card game where utilising\n the best strategy and building the strongest deck is crucial to victory. \n\nPlaying cards from your hand into the active area increases your attack and money.\nThe central line consists of all \nthe cards that you may buy using the money from the active cards.\n\nBuild the strongest deck and destroy your opponent!",
     "strat"   : "\nWould you like to play against an aggressive (A) or \na covetous (C) opponent: ",
     "name"    : "Enter your name: %s",
     "aggro"   : "\nAggressive opponent chosen",

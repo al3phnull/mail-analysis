@@ -113,7 +113,7 @@ class Player(object):
         self.data = Data().load_data('res/cards.json')
         self.money = 0
         self.attack = 0
-        self.health = 5
+        self.health = 30
         self.hand = Pile()
         self.active = Pile()
         self.discard = Pile()
@@ -216,11 +216,12 @@ class Board(object):
             self.active.put(card)
 
     def update_active(self):
-        if len(self.maindeck) > 0:
-            card = self.maindeck.draw()
-            self.active.put(card)
-        else:
-            pass
+        if len(self.active) < self.ncen:
+            if len(self.maindeck) > 0:
+               card = self.maindeck.draw()
+               self.active.put(card)
+            else:
+                pass
 
 
 class Game(object):
@@ -419,7 +420,7 @@ class Game(object):
                             self.bot.hand.put(card)
                             self.board.update_active()
                     else:
-                        print self.text['error']
+                        pass
                 else:
                     if money >= self.board.supplement[0].cost:
                         money -= self.board.supplement[0].cost
