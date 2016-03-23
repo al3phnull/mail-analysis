@@ -1,4 +1,4 @@
-### Future
+# Future
 
 * There is scope to add a name field, where the bot and player can have names
 While not crucial to the game, having the player's name in the game adds a personal element to the game, 
@@ -24,3 +24,7 @@ write tests for. Some work could be done to make this code better.
 This would be useful in order to increase the difficulty of the game. Since the human player
 attacks first, it is trivial to achieve a victory.
 
+* Multiplayer
+Why should we play against a bot all the time? It's way more fun to play
+with friends. We can put in an option that allows you to play against
+a human opponent.

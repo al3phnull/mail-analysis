@@ -27,6 +27,7 @@
     "nosupp"  : "\nNo supplements left",
     "broke"   : "\nInsufficient money to buy",
     "botst"   : "\nComputer money: %s, Computer attack: %s",
+    "botact"  : "\nComputer active cards",
     "botgo"   : "Computer turn",
     "botbuy"  : "\nComputer buying",
     "error"   : "\nError: Not enough money",

@@ -13,26 +13,21 @@ class TestGame(unittest.TestCase):
     def test_intro_message(self):
         game = Game()
         game.intro_message()
-        pass
 
     @unittest.skip("It prints text.")
     def test_show_buy(self):
         game = Game()
         game.show_buy()
-        pass
 
     @unittest.skip("It prints text.")
     def test_show_move(self):
         game = Game()
         game.show_move()
-        pass
 
     @unittest.skip("It prints text.")
     def test_rematch_prompt(self):
         game = Game()
         game.rematch_prompt()
-        pass
-
 
     def test_initialise(self):
         game = Game()
@@ -52,25 +47,21 @@ class TestGame(unittest.TestCase):
     def test_buyphase(self):
         game = Game()
         game.buyphase()
-        pass
 
     @unittest.skip("no output, skipping")
     def test_botturn(self):
         game = Game()
         game.botturn()
-        pass
 
     @unittest.skip("no output, skipping")
     def test_play(self):
         game = Game()
         game.play()
-        pass
 
     @unittest.skip("no output, skipping")
     def test_endgame(self):
         game = Game()
         game.endgame()
-        pass
 
     def test_attack(self):
         game = Game()

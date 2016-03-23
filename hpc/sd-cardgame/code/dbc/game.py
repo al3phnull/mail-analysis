@@ -138,7 +138,7 @@ class Game(object):
                 self.show_move()
 
             elif action == 'E' or action == 'e':
-                human.endturn()
+                self.human.endturn()
                 if self.bot.health > 0:
                     self.botturn()
                 break
@@ -161,6 +161,9 @@ class Game(object):
 
         self.bot.make_hand()
         self.bot.play_all()
+
+        self.text['botact']
+        self.bot.active.display_cards()
         
         print self.text['botst'] % (self.bot.money, self.bot.attack)
         time.sleep(2)
@@ -209,8 +212,8 @@ class Game(object):
                     else:
                         pass
                 else:
-                    if money >= self.board.supplement[0].cost:
-                        money -= self.board.supplement[0].cost
+                    if self.bot.money >= self.board.supplement[0].cost:
+                        self.bot.money -= self.board.supplement[0].cost
                         card = self.board.supplement.draw()
                         self.bot.hand.put(card)
                         print self.text['bought'] % (card)
@@ -221,7 +224,7 @@ class Game(object):
 
 
         raw_input(self.text['continue'])
-        bot.endturn()
+        self.bot.endturn()
 
 
     def show_buy(self):

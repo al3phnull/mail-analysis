@@ -52,7 +52,7 @@
         {
             "name": "Thug",
             "cost" : 1,
-            "attack" : 1,
+            "attack" : 2,
             "money" : 0
         },
         

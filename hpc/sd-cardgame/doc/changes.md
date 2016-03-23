@@ -1,5 +1,5 @@
-### Changes
-# I/O
+# Changes
+## I/O
 The input files are useful to the code since now
 cards may easily be added to the file to increase
 card variety.
@@ -14,7 +14,7 @@ input file in the Python scripts.
 * Created a json file to load cards from as dicts
 * Created a json file to load game text strings
 
-# Code
+## Code
 The code is now written with an actual object-oriented design.
 This was primarily used as an exercise for the developer to
 concretely familiarise with the concepts of the paradigm, but
@@ -29,7 +29,7 @@ test since most of the functions are quite short.
 * Created a Board class for managing the central line
 * Increased game risk by randomising central deck cards
 
-# Interface
+## Interface
 In the original version of the code, the interface was difficult to
 understand since there was a lot of text. This was cleaned up by
 clearing the screen for each move. This makes the game significantly
