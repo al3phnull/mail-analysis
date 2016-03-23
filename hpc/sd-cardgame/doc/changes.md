@@ -42,5 +42,3 @@ intuitive and simple to understand.
 * Catch implemented for input. Game won't break when user messes up input
 * Bot actions are now delayed to simulate how playing against an opponent would be
 
-# 
-
