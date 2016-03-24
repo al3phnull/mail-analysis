@@ -73,7 +73,8 @@ privately hosted instance of GitLab, which is available at
 \texttt{\href{http://git.138.io/atar/public.git}{http://git.138.io/atar/public.git}}\\
 Run the following command to clone the repository.
 \begin{lstlisting}
-git clone git@git.138.io:atar/public.git
+git clone http://git.138.io/atar/public.git
+
 \end{lstlisting}
 
 The root directory of this project is accessible via the following 
@@ -109,7 +110,7 @@ Data that contains the JSON loader function. While there may be a
 significantly more streamlined solution, for the time being it is
 sufficient for our purposes.
 
-Another major issue that persisted in the coding process was creating
+Another issue that persisted in the coding process was creating
 coherent tests for the code. While in a lot of cases it seemed sufficient
 to put the asserts equal to some expected value in the output, this
 is not general enough for a non-specific use case for the function
@@ -206,10 +207,42 @@ For a concise list of changes, see \texttt{docs/future.md}
         dictionaries from the imported JSON file, rather than an abstract 
         object. This should have very little impact on how the program
         presents itself.& \cellcolor{green!50} Low\\
+        \hline
     \end{tabular}
     \caption{Table of possible future enhancements.}
 \end{table}
 
+\subsection{Lessons Learned}
+In order to make most of the time given to complete the project, it is crucial
+to be aware of available tools prior to commencement of the project, especially
+given the robust tools that are provided by every source control system. For example,
+near the middle of the project, the developer had started utilising the issue tracking
+functionality of GitLab for major issues that he had found during development. This
+was useful for identifying what needs looking over in the code for improvement, as
+well as for taking a step back and looking at the code from a different perspective.
+
+It is preferable to identify what the developer is capable of achieving given his
+existing skills. Although the developer has achieved what he had planned for the
+project, there was too much time spent on parts of the code that could have been
+done faster were they better designed or planned prior to attempting an implementation.
+This will hinder the possibility of poor code creeping into the project, which would
+lead to fewer problems in development and reducing the need to redesign a part of the
+code after it is scheduled to be completed. In short, more generous time scales should
+be given when estimating parts that one is unsure of in order to avoid making decisions
+that would impact the risks of a project.
+
+Admittedly, the project had a poor start and the development model that was employed
+had closely resembled the "code-like-hell" model. Closer to the middle of the project,
+the developer had found himself disconcerted by this and switched to a more coherent
+development model, that somewhat resembled Evolutionary Prototyping, where new methods
+were introduced to a barely working prototype of the code, progressively increasing in
+robustness. This was a significantly more coherent approach to writing the code and 
+had increased the developer's confidence in writing a well-working code base.
+
+Committing to the master branch may work reasonably well for small projects like this one,
+but in future projects, feature branches should be utilised in order to keep track of
+what parts of the project are complete and what parts still require work, merging
+everything to master once that feature is fully implemented.
 \section{Conclusion}
 What we have been able to achieve is a testable, portable, (mostly) reusable,
 and modular code base for the provided deck building card game. While the

@@ -11,13 +11,13 @@ To execute the code base, you must be inside the `code/` directory
 - The main code may be viewed by looking at `code/dbc/` 
 This directory is build as a package, and it consists of several encapsulated classes that work together to
 run the game.
-`card.py` Returns card parameters
-`pile.py` Manages card pile attributes and methods
-`player.py` Sets up and declares functions for the player
-`bot.py` Inherits from the Player class
-`data.py` Provides input to the game
-`game.py` Provides the core functionality of the game
-`main.py` Initialises and runs the game
+ - `card.py` Returns card parameters
+ - `pile.py` Manages card pile attributes and methods
+ - `player.py` Sets up and declares functions for the player
+ - `bot.py` Inherits from the Player class
+ - `data.py` Provides input to the game
+ - `game.py` Provides the core functionality of the game
+ - `main.py` Initialises and runs the game
 
 - A subdirectory `code/dbc/tests/` contains the unit test suite for the code.
 

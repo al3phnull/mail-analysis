@@ -1,5 +1,5 @@
 """
-Class to specify card values
+Class to specify game functionality
 """
 
 import sys
@@ -24,6 +24,10 @@ class Game(object):
         self.board = Board()
 
     def intro_message(self):
+        """
+        Prints introductory message and allows the player
+        to choose AI strategy
+        """
         os.system('clear')
         print self.text['intro']
         while True:
@@ -42,6 +46,9 @@ class Game(object):
         raw_input(self.text['continue'])
 
     def initialise(self):
+        """
+        Reinitialise options for a rematch
+        """
         self.human = Player()
         self.bot = Bot()
         self.board = Board()
@@ -51,16 +58,26 @@ class Game(object):
         self.board.draw_active()
 
     def newturn(self):
+        """
+        Human assembles a new hand at the start of aturn
+        """
         self.human.make_hand()
 
     def buyphase(self):
+        """
+        Buying phase. The player has three options to choose from:
+        1. Buy a card by specifying its index
+        2. Buy a Levy from the supplement pile
+        3. Leave the shop
+        """
         while self.human.money > 0:
             self.show_buy()
             option = raw_input(self.text['action'])
             if option == 'S' or option == 's':
                 if len(self.board.supplement) > 0:
-                    card = self.board.supplement.draw(0)
+                    card = self.board.supplement[0]
                     if self.human.money >= card.cost:
+                        card = self.board.supplement.draw()
                         self.human.discard.put(card)
                         self.human.money -= card.cost
                         print self.text['bought'] % (card)
@@ -102,11 +119,24 @@ class Game(object):
 
 
     def attack(self, target, assailant):
+        """
+        Use attack values to inflict damage to
+        the other player
+        """
         target.health -= assailant.attack
         assailant.attack = 0
 
 
     def play(self):
+        """
+        Player chooses what to do during a turn:
+        1. Play all cards
+        2. Play a card specifying its index
+        3. Buy cards from central active line
+        4. Inflict damage to opponent's health
+        5. End turn
+        6. Leave the game
+        """
         self.newturn()
         while True:
             self.show_move()
@@ -152,6 +182,9 @@ class Game(object):
 
 
     def botturn(self):
+        """
+        Bot AI functionality. Long. Needs cleaning in future
+        """
         os.system('clear')
         print self.text['botgo']
         aggressive = self.strategy
@@ -180,7 +213,7 @@ class Game(object):
                 if self.board.supplement[0].cost <= self.bot.money:
                     templist.append(("s", self.board.supplement[0]))
 
-            for index in range(self.board.ncen):
+            for index in range(len(self.board.active)):
                 if self.board.active[index].cost <= self.bot.money:
                     templist.append((index, self.board.active[index]))
                 
@@ -208,7 +241,7 @@ class Game(object):
                             self.board.update_active()
                     else:
                         pass
-                else:
+                elif len(self.board.supplement) > 0:
                     if self.bot.money >= self.board.supplement[0].cost:
                         self.bot.money -= self.board.supplement[0].cost
                         card = self.board.supplement.draw()
@@ -225,16 +258,26 @@ class Game(object):
 
 
     def show_buy(self):
+        """
+        Displays the buying screen text
+        """
         os.system('clear')
+        print self.text['shopstr']
         print self.text['avail']
         self.board.active.display_cards()
 
         print self.text['wonga'] % self.human.money
 
+        supps = len(self.board.supplement)
+        print self.text['supprem'] % supps
+
         print self.text['buyopts']
 
 
     def show_move(self):
+        """
+        Displays the turn screen text
+        """
         os.system('clear')
         print self.text['health'] % (self.human.health, self.bot.health)
 
@@ -251,6 +294,10 @@ class Game(object):
 
 
     def rematch_prompt(self):
+        """
+        Prompts the player for a rematch
+        at the end of a game
+        """
         re = raw_input(self.text['rematch'])
         if re == 'Y' or re == 'y':
             return True
@@ -264,6 +311,9 @@ class Game(object):
     
 
     def endgame(self):
+        """
+        Conditions for the end of a game
+        """
         game = True
         while game:
             self.play()
