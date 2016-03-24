@@ -1,5 +1,5 @@
 {
-    "intro" : "dbc is a deck building card game where utilising\n the best strategy and building the strongest deck is crucial to victory. \n\nPlaying cards from your hand into the active area increases your attack and money.\nThe central line consists of all \nthe cards that you may buy using the money from the active cards.\n\nBuild the strongest deck and destroy your opponent!",
+    "intro" : "dbc is a deck building card game where utilising\n the best strategy and building the strongest deck is crucial to victory. \n\nPlaying cards from your hand into the active area increases your attack and money.\nThe central line consists of all \nthe cards that you may buy using the money from the active cards.\n\nBuying cards strengthens your deck and brings you closer to victory.\n\nBuild the strongest deck and destroy your opponent!",
     "strat"   : "\nWould you like to play against an aggressive (A) or \na covetous (C) opponent: ",
     "name"    : "Enter your name: %s",
     "aggro"   : "\nAggressive opponent chosen",
@@ -12,6 +12,7 @@
     "avail"   : "\nAvailable cards",
     "wonga"   : "\nAvailable money: %s",
     "gopts"   : "\nChoose action: \nP = play all \n[0-n] = play card\nB = buy card\nA = attack\nE = end turn\nQ = surrender",
+    "shopstr" : "\nCard that you buy here will go directly to your discard pile. They are shuffled into your main deck at the end of your turn",
     "toohigh" : "\nCard option out of range",
     "badopt"  : "\nInvalid option, try again",
     "giveup"  : "\nPlayer surrendered",

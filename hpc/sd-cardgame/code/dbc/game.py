@@ -4,10 +4,7 @@ Class to specify card values
 
 import sys
 import os
-import json
-import random
 import time
-import logging
 
 from data import *
 from player import *

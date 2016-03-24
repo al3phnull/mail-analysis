@@ -52,7 +52,6 @@
 \date{}
 \makeEPCCtitle
 \tableofcontents
-\listoffigures
 \listoftables
 \newpage
 \section{Introduction}
@@ -116,6 +115,16 @@ to put the asserts equal to some expected value in the output, this
 is not general enough for a non-specific use case for the function
 that the test was written for. This does not affect the way the 
 program itself is executed.
+
+An issue has been created that may affect the portability of the game,
+which added a further unexpected risk to the process. This was adding
+the function to clear the shell for text output, brought in by the
+\texttt{os} package. The line that clears the screen will work for 
+UNIX-based operating systems but not on Windows, due to there being
+a difference in the command to clear the shell. This may need 
+investigation on a solution that would be platform agnostic. However,
+since the requirement was that the platform to run on was Linux-based,
+this should not affect our desired result.
 \subsection{Summary of Changes}
 For a concise list of changes, see \texttt{docs/changelog.md}
 The major changes are outlined below.
@@ -191,14 +200,23 @@ For a concise list of changes, see \texttt{docs/future.md}
         stand-alone, and while a skeleton code exists for a Bot
         class, it is not populated. & \cellcolor{red!50} High\\
         \hline
+        Card Class & At the moment the Card class is superfluous, and
+        is only used to access card values quickly. Perhaps it could
+        be removed and have the Pile, Player, and Game classes pass around
+        dictionaries from the imported JSON file, rather than an abstract 
+        object. This should have very little impact on how the program
+        presents itself.& \cellcolor{green!50} Low\\
     \end{tabular}
     \caption{Table of possible future enhancements.}
 \end{table}
 
 \section{Conclusion}
-
+What we have been able to achieve is a testable, portable, (mostly) reusable,
+and modular code base for the provided deck building card game. While the
+code works as intended, with proposed changes implemented, it may be looking
+further into what could be done about overly long and complex methods
+and cleaning up modules that may be superfluous.
 
 %\bibliography{bibi}{}
 %\bibliographystyle{plain}
-\newpage
 \end{document}
