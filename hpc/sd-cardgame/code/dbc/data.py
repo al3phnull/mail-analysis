@@ -5,6 +5,9 @@ Class to load json data
 import json
 
 class Data(object):
+    """
+    Used to accommodate the import of resource files
+    """
     def __init__(self):
         self.data = []
 

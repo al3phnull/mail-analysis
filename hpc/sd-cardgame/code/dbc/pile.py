@@ -1,11 +1,11 @@
 """
-Class to specify card values
+Class to specify pile methods
 """
 
 import random
 
-from card import *
-from data import *
+from card import Card
+from data import Data
 
 class Pile(object):
     """
@@ -42,6 +42,7 @@ class Pile(object):
         squire_index = next(ix for (ix, d) in enumerate(cardlist) if d['name'] == 'Squire')
         serf_index = next(ix for (ix, d) in enumerate(cardlist) if d['name'] == 'Serf')
 
+        # Perhaps we can do this without loops
         [self.cards.append(Card(cardlist[serf_index])) for i in range(8)]
         [self.cards.append(Card(cardlist[squire_index])) for i in range(2)]
 

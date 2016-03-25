@@ -43,4 +43,15 @@ codebase used for refactoring the code.
  - The __central deck__ consists of 36 varied cards
  - The central __active area__ which starts empty
  - A __supplement__ pile that lies alongside the __central__ deck. Supplements are identical to regular cards from the pile, and they provide additional medium-attack powered cards when a stronger one cannot be afforded from the __central deck__.
-
+- Each turn the player may play all cards, play a single card from their hand, attack the opponent's health, buy cards, end their
+turn, or surrender the game.
+ - Playing cards moves them from the hand to the player's __active__ area.
+- The __buy__ screen allows the player and the computer to enhance their deck during their respective turns
+by spending __money__ obtained from played cards during their turn.
+ - They have an option between buying from the __central__ line or from the __supplement__ deck if they cannot afford a card
+ - Purchasing a card moves it from the __central__ line to the __discard__ pile
+- At the end of the turn, the __discard__ pile is shuffled into the player's __deck__.
+- The game reaches the end when:
+ - Either player reaches health of 0
+ - The __central__ deck and line are depleted of cards
+- The winner is the contestant with the most remaining __health__

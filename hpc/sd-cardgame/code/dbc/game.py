@@ -6,15 +6,16 @@ import sys
 import os
 import time
 
-from data import *
-from player import *
-from board import *
-from bot import *
-from card import *
-from pile import *
+from data import Data
+from player import Player
+from board import Board
+from bot import Bot
 
 
 class Game(object):
+    """
+    Initialises all the game values from imported modules
+    """
 
     def __init__(self):
         self.text = Data().load_data('res/strings.json')
@@ -22,6 +23,7 @@ class Game(object):
         self.human = Player()
         self.bot = Bot()
         self.board = Board()
+        self.strategy = 0
 
     def intro_message(self):
         """
@@ -35,7 +37,7 @@ class Game(object):
             if self.strategy == 'a' or self.strategy == 'A':
                 print self.text['aggro']
                 break
-            
+
             if self.strategy == 'c' or self.strategy == 'C':
                 print self.text['shekel']
                 break
@@ -170,10 +172,10 @@ class Game(object):
                 break
 
             elif action == 'Q' or action == 'q':
-                quit = raw_input(self.text['confirm'])
-                if quit == 'Y' or quit == 'y':
+                giveup = raw_input(self.text['confirm'])
+                if giveup == 'Y' or giveup == 'y':
                     sys.exit(self.text['giveup'])
-                elif quit == 'N' or quit == 'n':
+                elif giveup == 'N' or giveup == 'n':
                     continue
 
             else:
@@ -191,18 +193,18 @@ class Game(object):
         self.bot.make_hand()
         self.bot.play_all()
 
-        self.text['botact']
+        print self.text['botact']
         self.bot.active.display_cards()
-        
+
         print self.text['botst'] % (self.bot.money, self.bot.attack)
         time.sleep(2)
 
         if self.bot.attack > 0:
             print self.text['botatk'] % (self.bot.attack)
             self.attack(self.human, self.bot)
-        
+
         print self.text['botbuy']
-        
+
         time.sleep(2)
         botbuy = True
         while botbuy:
@@ -215,13 +217,13 @@ class Game(object):
             cardinds = range(len(self.board.active))
             for index in cardinds:
                 cardinds.pop()
-                
+
                 if self.board.active[index].cost <= self.bot.money:
                     templist.append((index, self.board.active[index]))
-                
+
                 if len(templist) > 0:
                     maxindex = 0
-                    for index in range(len(templist)):
+                    for index in enumerate(templist):
                         if templist[index][1].cost > templist[maxindex][1].cost:
                             maxindex = index
 
@@ -252,8 +254,6 @@ class Game(object):
                         card = self.board.supplement.draw()
                         self.bot.hand.put(card)
                         print self.text['bought'] % (card)
-            else:
-                botbuy = False
             if self.bot.money == 0:
                 botbuy = False
 
@@ -303,17 +303,17 @@ class Game(object):
         Prompts the player for a rematch
         at the end of a game
         """
-        re = raw_input(self.text['rematch'])
-        if re == 'Y' or re == 'y':
+        rematch = raw_input(self.text['rematch'])
+        if rematch == 'Y' or rematch == 'y':
             return True
-        
-        elif re == 'N' or re == 'n':
+
+        elif rematch == 'N' or rematch == 'n':
             return False
 
         else:
-            self.text['badopt']
+            print self.text['badopt']
 
-    
+
 
     def endgame(self):
         """

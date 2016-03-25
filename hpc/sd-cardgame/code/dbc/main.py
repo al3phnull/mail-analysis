@@ -1,10 +1,13 @@
 """
-Class to specify card values
+Class to initialise and execute the game
 """
 
-from game import *
+from game import Game
 
 def main():
+    """
+    Launches the main game procedure
+    """
     g = Game()
     g.intro_message()
     g.initialise()

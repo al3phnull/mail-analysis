@@ -1,18 +1,15 @@
 """
-Class to specify card values
+Class to specify player functions
 """
 
-import sys
-import os
-import json
-import random
-import time
 
-from pile import *
-from data import *
+from pile import Pile
+from data import Data
 
 class Player(object):
-
+    """
+    Initialises player values and specifies player methods
+    """
     def __init__(self):
         self.data = Data().load_data('res/cards.json')['player']
         self.money = 0
@@ -44,7 +41,7 @@ class Player(object):
         while len(self.hand) < self.handsize:
             if len(self.drawpile) == 0:
                 self.discard.shuffle()
-                self.deck = self.discard
+                self.drawpile = self.discard
                 self.discard = Pile()
             card = self.drawpile.draw()
             self.hand.put(card)
@@ -52,7 +49,7 @@ class Player(object):
     def play_card(self, index):
         """
         Takes a card from the player's hand and adds
-        its stats to the player's. 
+        its stats to the player's.
         :param index: the index of the card in the hand
         """
         card = self.hand.draw(index)
@@ -80,7 +77,7 @@ class Player(object):
     def endturn(self):
         """
         Steps taken at the end of the turn.
-        The active and hand piles are 
+        The active and hand piles are
         merged with the discard pile then the
         discard pile is shuffled into the drawpile
         money and attack are reinitialised

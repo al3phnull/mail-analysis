@@ -1,7 +1,7 @@
 """
 Class to specify card values
 """
-from data import *
+from data import Data
 
 class Card(object):
     """
