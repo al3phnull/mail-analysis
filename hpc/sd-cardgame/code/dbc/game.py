@@ -126,7 +126,6 @@ class Game(object):
         target.health -= assailant.attack
         assailant.attack = 0
 
-
     def play(self):
         """
         Player chooses what to do during a turn:
@@ -213,7 +212,10 @@ class Game(object):
                 if self.board.supplement[0].cost <= self.bot.money:
                     templist.append(("s", self.board.supplement[0]))
 
-            for index in range(len(self.board.active)):
+            cardinds = range(len(self.board.active))
+            for index in cardinds:
+                cardinds.pop()
+                
                 if self.board.active[index].cost <= self.bot.money:
                     templist.append((index, self.board.active[index]))
                 
@@ -241,7 +243,10 @@ class Game(object):
                             self.board.update_active()
                     else:
                         pass
-                elif len(self.board.supplement) > 0:
+                else:
+                    pass
+
+                if len(self.board.supplement) > 0:
                     if self.bot.money >= self.board.supplement[0].cost:
                         self.bot.money -= self.board.supplement[0].cost
                         card = self.board.supplement.draw()

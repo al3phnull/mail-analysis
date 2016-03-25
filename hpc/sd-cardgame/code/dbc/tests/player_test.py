@@ -44,12 +44,6 @@ class TestPlayer(unittest.TestCase):
         player.play_all()
         self.assertEquals(len(player.active), player.handsize)
     
-    def test_buy_card(self):
-        player = Player()
-        card = Card(random.choice(player.data))
-        player.buy_card(card)
-        self.assertEquals(player.money, card.cost)
-    
     def test_move_to_discard(self):
         player = Player()
         player.make_deck()
