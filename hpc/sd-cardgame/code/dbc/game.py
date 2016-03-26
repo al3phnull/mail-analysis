@@ -223,7 +223,7 @@ class Game(object):
 
                 if len(templist) > 0:
                     maxindex = 0
-                    for index in range(len((templist)):
+                    for index in range(len(templist)):
                         if templist[index][1].cost > templist[maxindex][1].cost:
                             maxindex = index
 
