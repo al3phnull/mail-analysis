@@ -246,7 +246,7 @@ class Game(object):
                     else:
                         pass
                 else:
-                    pass
+                    break
 
                 if len(self.board.supplement) > 0:
                     if self.bot.money >= self.board.supplement[0].cost:
@@ -254,6 +254,8 @@ class Game(object):
                         card = self.board.supplement.draw()
                         self.bot.hand.put(card)
                         print self.text['bought'] % (card)
+                else:
+                   break
             if self.bot.money == 0:
                 botbuy = False
 
