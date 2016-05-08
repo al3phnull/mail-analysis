@@ -117,7 +117,7 @@ is not general enough for a non-specific use case for the function
 that the test was written for. This does not affect the way the 
 program itself is executed.
 
-An issue has been created that may affect the portability of the game,
+An addition to the code has caused an issue that may affect the portability of the game,
 which added a further unexpected risk to the process. This was adding
 the function to clear the shell for text output, brought in by the
 \texttt{os} package. The line that clears the screen will work for 
@@ -134,7 +134,7 @@ The major changes are outlined below.
         \hline
         Change & Description\\
         \hline
-        OO Deisgn of code & OO is ideal for a game project like this,
+        OO Design of code & OO is ideal for a game project like this,
         since that makes it easier to identify what code would run 
         each component of the game, such as a card being an object,
         a pile of cards being an object, the players, the game board,
@@ -161,7 +161,7 @@ The major changes are outlined below.
         included to simply execute the main script in the game
         directory. This is a simple solution to having an executable
         to run the code. The scrips also cleans the directory after
-        the game finishes from Python bytecode that is created
+        the game finishes from Python byte code that is created
         upon execution of the package.\\
         \hline
     \end{tabular}
@@ -182,7 +182,8 @@ For a concise list of changes, see \texttt{docs/future.md}
         to extend the already existing code and write some more
         methods to implement a graphical user interface. Some risks are 
         involved in this, of course, where some functions would need to be
-        rewritten so that they are usable with Qt4 & 
+        rewritten so that they are usable with Qt4. Another options would
+        be to either implement ASCII art or a ncurses UI& 
         \cellcolor{red!50}High \\
         \hline
         Multiplayer/PvP & It is possible to have an option at the 
@@ -212,7 +213,8 @@ For a concise list of changes, see \texttt{docs/future.md}
     \caption{Table of possible future enhancements.}
 \end{table}
 
-\subsection{Lessons Learned}
+\subsection{Lessons}
+\subsubsection{Time awareness}
 In order to make most of the time given to complete the project, it is crucial
 to be aware of available tools prior to commencement of the project, especially
 given the robust tools that are provided by every source control system. For example,
@@ -221,6 +223,7 @@ functionality of GitLab for major issues that he had found during development. T
 was useful for identifying what needs looking over in the code for improvement, as
 well as for taking a step back and looking at the code from a different perspective.
 
+\subsubsection{Risks}
 It is preferable to identify what the developer is capable of achieving given his
 existing skills. Although the developer has achieved what he had planned for the
 project, there was too much time spent on parts of the code that could have been
@@ -231,6 +234,7 @@ code after it is scheduled to be completed. In short, more generous time scales 
 be given when estimating parts that one is unsure of in order to avoid making decisions
 that would impact the risks of a project.
 
+\subsubsection{Development models}
 Admittedly, the project had a poor start and the development model that was employed
 had closely resembled the "code-like-hell" model. Closer to the middle of the project,
 the developer had found himself disconcerted by this and switched to a more coherent
@@ -239,10 +243,12 @@ were introduced to a barely working prototype of the code, progressively increas
 robustness. This was a significantly more coherent approach to writing the code and 
 had increased the developer's confidence in writing a well-working code base.
 
+\subsubsection{Project structure}
 Committing to the master branch may work reasonably well for small projects like this one,
 but in future projects, feature branches should be utilised in order to keep track of
 what parts of the project are complete and what parts still require work, merging
 everything to master once that feature is fully implemented.
+
 \section{Conclusion}
 What we have been able to achieve is a testable, portable, (mostly) reusable,
 and modular code base for the provided deck building card game. While the
