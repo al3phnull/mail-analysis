@@ -1,7 +1,3 @@
-This is a repository containing:
+An analysis of my Deliveroo order emails.
 
-* Significant academic projects
-* Personal projects
-* Other neat things
-
-More will come soon.
+Totally useless in practice but still a lot of fun to do.
